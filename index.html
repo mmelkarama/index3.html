@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Page</title>
+    <title>Login Page</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -29,6 +29,16 @@
             font-size: 28px; /* Title font size */
             color: #FFCC00; /* Title color */
         }
+        input {
+            background-color: #444444;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+        }
         button {
             background-color: #FFCC00; /* Button color */
             color: black;
@@ -53,13 +63,21 @@
             border-radius: 5px;
             margin-top: 10px;
         }
+        .error {
+            color: #FF0000;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Download Your File</h1>
-        <button id="downloadButton">Download Now</button>
-        <p id="downloadResult"></p>
+        <h1>Login</h1>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="loginError" class="error"></p>
         <div class="ads">
             <p>Check out our ads:</p>
             <img src="https://via.placeholder.com/300x100" alt="Ad 1">
@@ -68,18 +86,21 @@
     </div>
 
     <script>
-        document.getElementById('downloadButton').addEventListener('click', function() {
-            // Simulate file download
-            var downloadResult = document.getElementById('downloadResult');
-            downloadResult.textContent = "Your download will start shortly...";
-            
-            // Create a temporary link to download the file
-            var link = document.createElement('a');
-            link.href = 'path/to/your/file.zip'; // Replace with your file path
-            link.download = 'yourfile.zip'; // Replace with your desired file name
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var loginError = document.getElementById('loginError');
+
+            // Simple login validation (you can modify this to check against a database or a hardcoded list)
+            if (username === 'user' && password === 'password') {
+                loginError.textContent = ''; // Clear error message
+                alert('Login successful!'); // Redirect or show download page
+                window.location.href = 'download.html'; // Replace with your actual download page
+            } else {
+                loginError.textContent = 'Invalid username or password. Please try again.';
+            }
         });
     </script>
 </body>
